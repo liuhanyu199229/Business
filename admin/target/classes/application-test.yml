@@ -1,0 +1,51 @@
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:mysql://118.24.243.216:3306/third?useUnicode=true&useSSL=false&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&allowMultiQueries=true
+    username: root
+    password: 64c90b4f4e895220823b1d21990e9b9f
+    druid:
+      initial-size: 10 #连接池初始化大小
+      min-idle: 10 #最小空闲连接数
+      max-active: 100 #最大连接数
+      web-stat-filter:
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*" #不统计这些请求数据
+      stat-view-servlet: #访问监控网页的登录用户名和密码
+        login-username: druid
+        login-password: druid
+  redis:
+    host: 127.0.0.1 # Redis服务器地址 118.24.243.216
+    database: 0 # Redis数据库索引（默认为0）
+    port: 6379 # Redis服务器连接端口
+    password: formssi@2020 # Redis服务器连接密码（默认为空）
+    timeout: 3000ms # 连接超时时间（毫秒）
+    lettuce:
+      pool:
+        max-idle: 100
+        max-active: 100
+        min-idle: 20
+#文件上传 下载配置信息
+file:
+  path:
+    download: http://118.24.243.216:8030/third/
+    upload: /app/fileServer/third/
+
+#上传文件到文件服务器的配置
+ftpconfig:
+  #目标服务器IP
+  host: 118.24.243.216
+  #目标服务器端口
+  port: 22
+  #目标服务器用户名
+  user: root
+  #目标服务器密码
+  password: 49203a6a2de0427cb48e7a87d35eea50
+  #目标服务器地址
+  basePath: /thirdFile
+  #源文件目录地址
+  sourceFile: /sourceFile
+
+logging:
+  level:
+    root: info #日志配置DEBUG,INFO,WARN,ERROR
+    com.formssi.third: INFO

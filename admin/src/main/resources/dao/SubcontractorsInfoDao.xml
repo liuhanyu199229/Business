@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.formssi.third.dao.SubcontractorsInfoDao">
+    <select id="getListByPage" parameterType="com.formssi.third.dto.SubcontractorsInfoDto" resultType="com.formssi.third.model.SubcontractorsInfo">
+    select * from subcontractors_info bg
+    <where>
+        1=1
+        <if test="form.subcontractorsName!=null and form.subcontractorsName!=''">
+            AND bg.subcontractors_name LIKE concat('%',#{form.subcontractorsName, jdbcType=VARCHAR},'%')
+        </if>
+        <if test="form.principal!=null and form.principal!=''">
+            AND bg.principal_a LIKE concat('%',#{form.principal, jdbcType=VARCHAR},'%')
+            AND bg.principal_b LIKE concat('%',#{form.principal, jdbcType=VARCHAR},'%')
+        </if>
+        <if test="form.phone!=null and form.phone!=''">
+            AND bg.phone_a = #{form.phone, jdbcType=VARCHAR}
+            AND bg.phone_b = #{form.phone, jdbcType=VARCHAR}
+        </if>
+        <if test="form.subcontractorsArea!=null and form.subcontractorsArea!=''">
+            AND bg.subcontractorsinfo_area = #{form.subcontractorsArea, jdbcType=VARCHAR}
+        </if>
+    </where> order by subcontractors_id DESC
+    </select>
+    <insert id="insertBatch">
+        insert into subcontractors_info (SUBCONTRACTORS_NAME, SUBCONTRACTORS_AREA, WORKER_TYPE,
+        PRINCIPAL_A, PHONE_A, PRINCIPAL_B, PHONE_B, CREATE_USER, CREATE_DATE, CREATE_TIME)
+        values
+        <foreach collection ="list" item="item" separator =",">
+            (#{item.subcontractorsName,jdbcType=VARCHAR}, #{item.subcontractorsArea,jdbcType=VARCHAR}, #{item.workerType,jdbcType=VARCHAR},
+            #{item.principalA,jdbcType=VARCHAR}, #{item.phoneA,jdbcType=VARCHAR}, #{item.principalB,jdbcType=VARCHAR},
+            #{item.phoneB,jdbcType=VARCHAR}, #{item.createUser,jdbcType=BIGINT}, #{item.createDate,jdbcType=VARCHAR}, #{item.createTime,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.formssi.third.dao.UmsAdminDao">
+    <resultMap id="BusinessBaseMsg" type="com.formssi.third.dto.UmsBusinessBaseMsg">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
+        <result column="address" jdbcType="VARCHAR" property="address" />
+    </resultMap>
+    <select id="getAdminList" resultType="com.formssi.third.dto.UmsAdminVo">
+        select ua.id, ua.account_type, ua.username, ua.mobile, ua.icon, ua.email, ua.real_name, ua.note,
+        ua.create_time, ua.login_time, ua.status,aa.name role_name
+        from ums_admin ua
+        left join ums_admin_role_relation bb on ua.id = bb.admin_id
+        left join ums_role aa on aa.id=bb.role_id
+        <where>
+            ua.is_delete = 0
+            <if test="form.name!=null and form.name!=''">
+                AND (ua.username like concat('%',#{form.name, jdbcType=VARCHAR},'%')
+                or ua.mobile like concat('%',#{form.name, jdbcType=VARCHAR},'%'))
+            </if>
+            <if test="form.status!=null and form.status!=''">
+                AND ua.status = #{form.status, jdbcType=VARCHAR}
+            </if>
+            <if test="form.roleId!=null and form.roleId!=''">
+                AND bb.role_id = #{form.roleId, jdbcType=VARCHAR}
+            </if>
+        </where>
+        order by ua.update_time desc
+    </select>
+    <select id="getAdminList2" resultType="com.formssi.third.dto.AdminExcelModel">
+        select ua.id, ua.username, ua.note, ua.mobile, '' projects, '' job, '' dept,aa.name role_name,
+        ua.create_time, ua.status
+        from ums_admin ua
+        left join ums_admin_role_relation bb on ua.id = bb.admin_id
+        left join ums_role aa on aa.id=bb.role_id
+        <where>
+            ua.is_delete = 0
+            <if test="form.name!=null and form.name!=''">
+                AND (ua.username like concat('%',#{form.name, jdbcType=VARCHAR},'%')
+                or ua.mobile like concat('%',#{form.name, jdbcType=VARCHAR},'%'))
+            </if>
+            <if test="form.status!=null and form.status!=''">
+                AND ua.status = #{form.status, jdbcType=VARCHAR}
+            </if>
+            <if test="form.roleId!=null and form.roleId!=''">
+                AND bb.role_id = #{form.roleId, jdbcType=VARCHAR}
+            </if>
+        </where>
+        order by ua.update_time desc
+    </select>
+</mapper>

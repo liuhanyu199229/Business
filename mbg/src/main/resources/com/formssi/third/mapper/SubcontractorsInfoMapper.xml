@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.formssi.third.mapper.SubcontractorsInfoMapper">
+  <resultMap id="BaseResultMap" type="com.formssi.third.model.SubcontractorsInfo">
+    <id column="SUBCONTRACTORS_ID" jdbcType="INTEGER" property="subcontractorsId" />
+    <result column="SUBCONTRACTORS_NAME" jdbcType="VARCHAR" property="subcontractorsName" />
+    <result column="SUBCONTRACTORS_AREA" jdbcType="VARCHAR" property="subcontractorsArea" />
+    <result column="SUBCONTRACTORS_STATES" jdbcType="VARCHAR" property="subcontractorsStates" />
+    <result column="WORKER_TYPE" jdbcType="VARCHAR" property="workerType" />
+    <result column="PRINCIPAL_A" jdbcType="INTEGER" property="principalA" />
+    <result column="PHONE_A" jdbcType="VARCHAR" property="phoneA" />
+    <result column="PRINCIPAL_B" jdbcType="INTEGER" property="principalB" />
+    <result column="PHONE_B" jdbcType="VARCHAR" property="phoneB" />
+    <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser" />
+    <result column="CREATE_DATE" jdbcType="VARCHAR" property="createDate" />
+    <result column="CREATE_TIME" jdbcType="VARCHAR" property="createTime" />
+    <result column="UPDATE_USER" jdbcType="VARCHAR" property="updateUser" />
+    <result column="UPDATE_DATE" jdbcType="VARCHAR" property="updateDate" />
+    <result column="UPDATE_TIME" jdbcType="VARCHAR" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SUBCONTRACTORS_ID, SUBCONTRACTORS_NAME, SUBCONTRACTORS_AREA, SUBCONTRACTORS_STATES, 
+    WORKER_TYPE, PRINCIPAL_A, PHONE_A, PRINCIPAL_B, PHONE_B, CREATE_USER, CREATE_DATE, 
+    CREATE_TIME, UPDATE_USER, UPDATE_DATE, UPDATE_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.formssi.third.model.SubcontractorsInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from subcontractors_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from subcontractors_info
+    where SUBCONTRACTORS_ID = #{subcontractorsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from subcontractors_info
+    where SUBCONTRACTORS_ID = #{subcontractorsId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.formssi.third.model.SubcontractorsInfoExample">
+    delete from subcontractors_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.formssi.third.model.SubcontractorsInfo">
+    insert into subcontractors_info (SUBCONTRACTORS_ID, SUBCONTRACTORS_NAME, 
+      SUBCONTRACTORS_AREA, SUBCONTRACTORS_STATES, 
+      WORKER_TYPE, PRINCIPAL_A, PHONE_A, 
+      PRINCIPAL_B, PHONE_B, CREATE_USER, 
+      CREATE_DATE, CREATE_TIME, UPDATE_USER, 
+      UPDATE_DATE, UPDATE_TIME)
+    values (#{subcontractorsId,jdbcType=INTEGER}, #{subcontractorsName,jdbcType=VARCHAR}, 
+      #{subcontractorsArea,jdbcType=VARCHAR}, #{subcontractorsStates,jdbcType=VARCHAR}, 
+      #{workerType,jdbcType=VARCHAR}, #{principalA,jdbcType=INTEGER}, #{phoneA,jdbcType=VARCHAR}, 
+      #{principalB,jdbcType=INTEGER}, #{phoneB,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.formssi.third.model.SubcontractorsInfo">
+    insert into subcontractors_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="subcontractorsId != null">
+        SUBCONTRACTORS_ID,
+      </if>
+      <if test="subcontractorsName != null">
+        SUBCONTRACTORS_NAME,
+      </if>
+      <if test="subcontractorsArea != null">
+        SUBCONTRACTORS_AREA,
+      </if>
+      <if test="subcontractorsStates != null">
+        SUBCONTRACTORS_STATES,
+      </if>
+      <if test="workerType != null">
+        WORKER_TYPE,
+      </if>
+      <if test="principalA != null">
+        PRINCIPAL_A,
+      </if>
+      <if test="phoneA != null">
+        PHONE_A,
+      </if>
+      <if test="principalB != null">
+        PRINCIPAL_B,
+      </if>
+      <if test="phoneB != null">
+        PHONE_B,
+      </if>
+      <if test="createUser != null">
+        CREATE_USER,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateUser != null">
+        UPDATE_USER,
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="subcontractorsId != null">
+        #{subcontractorsId,jdbcType=INTEGER},
+      </if>
+      <if test="subcontractorsName != null">
+        #{subcontractorsName,jdbcType=VARCHAR},
+      </if>
+      <if test="subcontractorsArea != null">
+        #{subcontractorsArea,jdbcType=VARCHAR},
+      </if>
+      <if test="subcontractorsStates != null">
+        #{subcontractorsStates,jdbcType=VARCHAR},
+      </if>
+      <if test="workerType != null">
+        #{workerType,jdbcType=VARCHAR},
+      </if>
+      <if test="principalA != null">
+        #{principalA,jdbcType=INTEGER},
+      </if>
+      <if test="phoneA != null">
+        #{phoneA,jdbcType=VARCHAR},
+      </if>
+      <if test="principalB != null">
+        #{principalB,jdbcType=INTEGER},
+      </if>
+      <if test="phoneB != null">
+        #{phoneB,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.formssi.third.model.SubcontractorsInfoExample" resultType="java.lang.Long">
+    select count(*) from subcontractors_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update subcontractors_info
+    <set>
+      <if test="record.subcontractorsId != null">
+        SUBCONTRACTORS_ID = #{record.subcontractorsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.subcontractorsName != null">
+        SUBCONTRACTORS_NAME = #{record.subcontractorsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subcontractorsArea != null">
+        SUBCONTRACTORS_AREA = #{record.subcontractorsArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subcontractorsStates != null">
+        SUBCONTRACTORS_STATES = #{record.subcontractorsStates,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workerType != null">
+        WORKER_TYPE = #{record.workerType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.principalA != null">
+        PRINCIPAL_A = #{record.principalA,jdbcType=INTEGER},
+      </if>
+      <if test="record.phoneA != null">
+        PHONE_A = #{record.phoneA,jdbcType=VARCHAR},
+      </if>
+      <if test="record.principalB != null">
+        PRINCIPAL_B = #{record.principalB,jdbcType=INTEGER},
+      </if>
+      <if test="record.phoneB != null">
+        PHONE_B = #{record.phoneB,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createUser != null">
+        CREATE_USER = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateUser != null">
+        UPDATE_USER = #{record.updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDate != null">
+        UPDATE_DATE = #{record.updateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null">
+        UPDATE_TIME = #{record.updateTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update subcontractors_info
+    set SUBCONTRACTORS_ID = #{record.subcontractorsId,jdbcType=INTEGER},
+      SUBCONTRACTORS_NAME = #{record.subcontractorsName,jdbcType=VARCHAR},
+      SUBCONTRACTORS_AREA = #{record.subcontractorsArea,jdbcType=VARCHAR},
+      SUBCONTRACTORS_STATES = #{record.subcontractorsStates,jdbcType=VARCHAR},
+      WORKER_TYPE = #{record.workerType,jdbcType=VARCHAR},
+      PRINCIPAL_A = #{record.principalA,jdbcType=INTEGER},
+      PHONE_A = #{record.phoneA,jdbcType=VARCHAR},
+      PRINCIPAL_B = #{record.principalB,jdbcType=INTEGER},
+      PHONE_B = #{record.phoneB,jdbcType=VARCHAR},
+      CREATE_USER = #{record.createUser,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=VARCHAR},
+      UPDATE_USER = #{record.updateUser,jdbcType=VARCHAR},
+      UPDATE_DATE = #{record.updateDate,jdbcType=VARCHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.formssi.third.model.SubcontractorsInfo">
+    update subcontractors_info
+    <set>
+      <if test="subcontractorsName != null">
+        SUBCONTRACTORS_NAME = #{subcontractorsName,jdbcType=VARCHAR},
+      </if>
+      <if test="subcontractorsArea != null">
+        SUBCONTRACTORS_AREA = #{subcontractorsArea,jdbcType=VARCHAR},
+      </if>
+      <if test="subcontractorsStates != null">
+        SUBCONTRACTORS_STATES = #{subcontractorsStates,jdbcType=VARCHAR},
+      </if>
+      <if test="workerType != null">
+        WORKER_TYPE = #{workerType,jdbcType=VARCHAR},
+      </if>
+      <if test="principalA != null">
+        PRINCIPAL_A = #{principalA,jdbcType=INTEGER},
+      </if>
+      <if test="phoneA != null">
+        PHONE_A = #{phoneA,jdbcType=VARCHAR},
+      </if>
+      <if test="principalB != null">
+        PRINCIPAL_B = #{principalB,jdbcType=INTEGER},
+      </if>
+      <if test="phoneB != null">
+        PHONE_B = #{phoneB,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE = #{updateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SUBCONTRACTORS_ID = #{subcontractorsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.formssi.third.model.SubcontractorsInfo">
+    update subcontractors_info
+    set SUBCONTRACTORS_NAME = #{subcontractorsName,jdbcType=VARCHAR},
+      SUBCONTRACTORS_AREA = #{subcontractorsArea,jdbcType=VARCHAR},
+      SUBCONTRACTORS_STATES = #{subcontractorsStates,jdbcType=VARCHAR},
+      WORKER_TYPE = #{workerType,jdbcType=VARCHAR},
+      PRINCIPAL_A = #{principalA,jdbcType=INTEGER},
+      PHONE_A = #{phoneA,jdbcType=VARCHAR},
+      PRINCIPAL_B = #{principalB,jdbcType=INTEGER},
+      PHONE_B = #{phoneB,jdbcType=VARCHAR},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      UPDATE_DATE = #{updateDate,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=VARCHAR}
+    where SUBCONTRACTORS_ID = #{subcontractorsId,jdbcType=INTEGER}
+  </update>
+</mapper>

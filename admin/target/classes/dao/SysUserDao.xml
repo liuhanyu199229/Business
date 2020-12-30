@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.formssi.third.dao.SysUserDao">
+    <resultMap id="BusinessBaseMsg" type="com.formssi.third.dto.UmsBusinessBaseMsg">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
+        <result column="address" jdbcType="VARCHAR" property="address" />
+    </resultMap>
+    <select id="getUserList" resultType="com.formssi.third.dto.SysUserVo">
+        select a.userName,a.nickName,a.departmentId,c.name departmentName,a.positionId,b.name positionName,a.certId
+        from sys_user a
+        left join sys_position b on a.positionId = b.parentId
+        left join sys_department c on a.departmentId=c.id
+        <where>
+            a.status = 1
+            <if test="name!=null and name!=''">
+                AND a.username like concat('%',#{name, jdbcType=VARCHAR},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.formssi.third.dao.ProjectInfoDao">
+    <select id="getListByPage" parameterType="com.formssi.third.dto.ProjectInfoDto" resultType="com.formssi.third.model.ProjectInfo">
+    select * from PROJECT_INFO bg
+    <where>
+        1=1
+        <if test="form.projectName!=null and form.projectName!=''">
+            AND bg.PROJECT_NAME LIKE concat('%',#{form.projectName, jdbcType=VARCHAR},'%')
+        </if>
+        <if test="form.managerId!=null and form.managerId!=''">
+            AND bg.MANAGER_ID LIKE concat('%',#{form.managerId, jdbcType=VARCHAR},'%')
+        </if>
+        <if test="form.projectArea!=null and form.projectArea!=''">
+            AND bg.PROJECT_AREA = #{form.projectArea, jdbcType=VARCHAR}
+        </if>
+        <if test="form.projectScale!=null and form.projectScale!=''">
+            AND bg.PROJECT_SCALE = #{form.projectScale, jdbcType=VARCHAR}
+        </if>
+        <if test="form.contractSDate!=null and form.contractSDate!=''">
+            AND bg.CONTRACT_S_DATE = #{form.contractSDate, jdbcType=VARCHAR}
+        </if>
+        <if test="form.contractEDate!=null and form.contractEDate!=''">
+            AND bg.CONTRACT_E_DATE = #{form.contractEDate, jdbcType=VARCHAR}
+        </if>
+    </where> order by PROJECT_ID DESC
+    </select>
+    <insert id="insertBatch">
+        insert into PROJECT_INFO (PROJECT_NAME, PROJECT_TYPE, PROJECT_AREA,
+        PROJECT_SCALE, CONTRACT_S_DATE, CONTRACT_E_DATE, CONTRACT_AMOUNT, MANAGER_ID,
+        PHONE_A, DEPUTY_MANAGER_ID, PHONE_B,
+        PROJECT_DES, CREATE_USER, CREATE_DATE, CREATE_TIME)
+        values
+        <foreach collection ="list" item="item" separator =",">
+            (#{item.projectName,jdbcType=VARCHAR}, #{item.projectType,jdbcType=VARCHAR}, #{item.projectArea,jdbcType=VARCHAR},
+            #{item.projectScale,jdbcType=VARCHAR}, #{item.contractSDate,jdbcType=VARCHAR}, #{item.contractEDate,jdbcType=VARCHAR},
+            #{item.contractAmount,jdbcType=VARCHAR}, #{item.managerId,jdbcType=BIGINT}, #{item.phoneA,jdbcType=VARCHAR},
+            #{item.deputyManagerId,jdbcType=BIGINT}, #{item.phoneB,jdbcType=VARCHAR}, #{item.projectDes,jdbcType=VARCHAR},
+            #{item.createUser,jdbcType=BIGINT}, #{item.createDate,jdbcType=VARCHAR}, #{item.createTime,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+</mapper>

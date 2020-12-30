@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.formssi.third.mapper.ProjectInfoMapper">
+  <resultMap id="BaseResultMap" type="com.formssi.third.model.ProjectInfo">
+    <id column="PROJECT_ID" jdbcType="INTEGER" property="projectId" />
+    <result column="PROJECT_NAME" jdbcType="VARCHAR" property="projectName" />
+    <result column="PROJECT_TYPE" jdbcType="VARCHAR" property="projectType" />
+    <result column="PROJECT_AREA" jdbcType="VARCHAR" property="projectArea" />
+    <result column="PROJECT_SCALE" jdbcType="VARCHAR" property="projectScale" />
+    <result column="CONTRACT_S_DATE" jdbcType="VARCHAR" property="contractSDate" />
+    <result column="CONTRACT_E_DATE" jdbcType="VARCHAR" property="contractEDate" />
+    <result column="CONTRACT_AMOUNT" jdbcType="DECIMAL" property="contractAmount" />
+    <result column="MANAGER_ID" jdbcType="INTEGER" property="managerId" />
+    <result column="PHONE_A" jdbcType="VARCHAR" property="phoneA" />
+    <result column="DEPUTY_MANAGER_ID" jdbcType="INTEGER" property="deputyManagerId" />
+    <result column="PHONE_B" jdbcType="VARCHAR" property="phoneB" />
+    <result column="HANDLE_ID" jdbcType="INTEGER" property="handleId" />
+    <result column="PROJECT_STATES" jdbcType="VARCHAR" property="projectStates" />
+    <result column="PROJECT_DES" jdbcType="VARCHAR" property="projectDes" />
+    <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser" />
+    <result column="CREATE_DATE" jdbcType="VARCHAR" property="createDate" />
+    <result column="CREATE_TIME" jdbcType="VARCHAR" property="createTime" />
+    <result column="UPDATE_USER" jdbcType="VARCHAR" property="updateUser" />
+    <result column="UPDATE_DATE" jdbcType="VARCHAR" property="updateDate" />
+    <result column="UPDATE_TIME" jdbcType="VARCHAR" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    PROJECT_ID, PROJECT_NAME, PROJECT_TYPE, PROJECT_AREA, PROJECT_SCALE, CONTRACT_S_DATE, 
+    CONTRACT_E_DATE, CONTRACT_AMOUNT, MANAGER_ID, PHONE_A, DEPUTY_MANAGER_ID, PHONE_B, 
+    HANDLE_ID, PROJECT_STATES, PROJECT_DES, CREATE_USER, CREATE_DATE, CREATE_TIME, UPDATE_USER, 
+    UPDATE_DATE, UPDATE_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.formssi.third.model.ProjectInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from project_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from project_info
+    where PROJECT_ID = #{projectId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from project_info
+    where PROJECT_ID = #{projectId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.formssi.third.model.ProjectInfoExample">
+    delete from project_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.formssi.third.model.ProjectInfo">
+    insert into project_info (PROJECT_ID, PROJECT_NAME, PROJECT_TYPE, 
+      PROJECT_AREA, PROJECT_SCALE, CONTRACT_S_DATE, 
+      CONTRACT_E_DATE, CONTRACT_AMOUNT, MANAGER_ID, 
+      PHONE_A, DEPUTY_MANAGER_ID, PHONE_B, 
+      HANDLE_ID, PROJECT_STATES, PROJECT_DES, 
+      CREATE_USER, CREATE_DATE, CREATE_TIME, 
+      UPDATE_USER, UPDATE_DATE, UPDATE_TIME
+      )
+    values (#{projectId,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, #{projectType,jdbcType=VARCHAR}, 
+      #{projectArea,jdbcType=VARCHAR}, #{projectScale,jdbcType=VARCHAR}, #{contractSDate,jdbcType=VARCHAR}, 
+      #{contractEDate,jdbcType=VARCHAR}, #{contractAmount,jdbcType=DECIMAL}, #{managerId,jdbcType=INTEGER}, 
+      #{phoneA,jdbcType=VARCHAR}, #{deputyManagerId,jdbcType=INTEGER}, #{phoneB,jdbcType=VARCHAR}, 
+      #{handleId,jdbcType=INTEGER}, #{projectStates,jdbcType=VARCHAR}, #{projectDes,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createDate,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{updateUser,jdbcType=VARCHAR}, #{updateDate,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.formssi.third.model.ProjectInfo">
+    insert into project_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        PROJECT_ID,
+      </if>
+      <if test="projectName != null">
+        PROJECT_NAME,
+      </if>
+      <if test="projectType != null">
+        PROJECT_TYPE,
+      </if>
+      <if test="projectArea != null">
+        PROJECT_AREA,
+      </if>
+      <if test="projectScale != null">
+        PROJECT_SCALE,
+      </if>
+      <if test="contractSDate != null">
+        CONTRACT_S_DATE,
+      </if>
+      <if test="contractEDate != null">
+        CONTRACT_E_DATE,
+      </if>
+      <if test="contractAmount != null">
+        CONTRACT_AMOUNT,
+      </if>
+      <if test="managerId != null">
+        MANAGER_ID,
+      </if>
+      <if test="phoneA != null">
+        PHONE_A,
+      </if>
+      <if test="deputyManagerId != null">
+        DEPUTY_MANAGER_ID,
+      </if>
+      <if test="phoneB != null">
+        PHONE_B,
+      </if>
+      <if test="handleId != null">
+        HANDLE_ID,
+      </if>
+      <if test="projectStates != null">
+        PROJECT_STATES,
+      </if>
+      <if test="projectDes != null">
+        PROJECT_DES,
+      </if>
+      <if test="createUser != null">
+        CREATE_USER,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateUser != null">
+        UPDATE_USER,
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null">
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectType != null">
+        #{projectType,jdbcType=VARCHAR},
+      </if>
+      <if test="projectArea != null">
+        #{projectArea,jdbcType=VARCHAR},
+      </if>
+      <if test="projectScale != null">
+        #{projectScale,jdbcType=VARCHAR},
+      </if>
+      <if test="contractSDate != null">
+        #{contractSDate,jdbcType=VARCHAR},
+      </if>
+      <if test="contractEDate != null">
+        #{contractEDate,jdbcType=VARCHAR},
+      </if>
+      <if test="contractAmount != null">
+        #{contractAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="managerId != null">
+        #{managerId,jdbcType=INTEGER},
+      </if>
+      <if test="phoneA != null">
+        #{phoneA,jdbcType=VARCHAR},
+      </if>
+      <if test="deputyManagerId != null">
+        #{deputyManagerId,jdbcType=INTEGER},
+      </if>
+      <if test="phoneB != null">
+        #{phoneB,jdbcType=VARCHAR},
+      </if>
+      <if test="handleId != null">
+        #{handleId,jdbcType=INTEGER},
+      </if>
+      <if test="projectStates != null">
+        #{projectStates,jdbcType=VARCHAR},
+      </if>
+      <if test="projectDes != null">
+        #{projectDes,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.formssi.third.model.ProjectInfoExample" resultType="java.lang.Long">
+    select count(*) from project_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update project_info
+    <set>
+      <if test="record.projectId != null">
+        PROJECT_ID = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectName != null">
+        PROJECT_NAME = #{record.projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectType != null">
+        PROJECT_TYPE = #{record.projectType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectArea != null">
+        PROJECT_AREA = #{record.projectArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectScale != null">
+        PROJECT_SCALE = #{record.projectScale,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractSDate != null">
+        CONTRACT_S_DATE = #{record.contractSDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractEDate != null">
+        CONTRACT_E_DATE = #{record.contractEDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractAmount != null">
+        CONTRACT_AMOUNT = #{record.contractAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.managerId != null">
+        MANAGER_ID = #{record.managerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.phoneA != null">
+        PHONE_A = #{record.phoneA,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deputyManagerId != null">
+        DEPUTY_MANAGER_ID = #{record.deputyManagerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.phoneB != null">
+        PHONE_B = #{record.phoneB,jdbcType=VARCHAR},
+      </if>
+      <if test="record.handleId != null">
+        HANDLE_ID = #{record.handleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectStates != null">
+        PROJECT_STATES = #{record.projectStates,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectDes != null">
+        PROJECT_DES = #{record.projectDes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createUser != null">
+        CREATE_USER = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateUser != null">
+        UPDATE_USER = #{record.updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDate != null">
+        UPDATE_DATE = #{record.updateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null">
+        UPDATE_TIME = #{record.updateTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update project_info
+    set PROJECT_ID = #{record.projectId,jdbcType=INTEGER},
+      PROJECT_NAME = #{record.projectName,jdbcType=VARCHAR},
+      PROJECT_TYPE = #{record.projectType,jdbcType=VARCHAR},
+      PROJECT_AREA = #{record.projectArea,jdbcType=VARCHAR},
+      PROJECT_SCALE = #{record.projectScale,jdbcType=VARCHAR},
+      CONTRACT_S_DATE = #{record.contractSDate,jdbcType=VARCHAR},
+      CONTRACT_E_DATE = #{record.contractEDate,jdbcType=VARCHAR},
+      CONTRACT_AMOUNT = #{record.contractAmount,jdbcType=DECIMAL},
+      MANAGER_ID = #{record.managerId,jdbcType=INTEGER},
+      PHONE_A = #{record.phoneA,jdbcType=VARCHAR},
+      DEPUTY_MANAGER_ID = #{record.deputyManagerId,jdbcType=INTEGER},
+      PHONE_B = #{record.phoneB,jdbcType=VARCHAR},
+      HANDLE_ID = #{record.handleId,jdbcType=INTEGER},
+      PROJECT_STATES = #{record.projectStates,jdbcType=VARCHAR},
+      PROJECT_DES = #{record.projectDes,jdbcType=VARCHAR},
+      CREATE_USER = #{record.createUser,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=VARCHAR},
+      UPDATE_USER = #{record.updateUser,jdbcType=VARCHAR},
+      UPDATE_DATE = #{record.updateDate,jdbcType=VARCHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.formssi.third.model.ProjectInfo">
+    update project_info
+    <set>
+      <if test="projectName != null">
+        PROJECT_NAME = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectType != null">
+        PROJECT_TYPE = #{projectType,jdbcType=VARCHAR},
+      </if>
+      <if test="projectArea != null">
+        PROJECT_AREA = #{projectArea,jdbcType=VARCHAR},
+      </if>
+      <if test="projectScale != null">
+        PROJECT_SCALE = #{projectScale,jdbcType=VARCHAR},
+      </if>
+      <if test="contractSDate != null">
+        CONTRACT_S_DATE = #{contractSDate,jdbcType=VARCHAR},
+      </if>
+      <if test="contractEDate != null">
+        CONTRACT_E_DATE = #{contractEDate,jdbcType=VARCHAR},
+      </if>
+      <if test="contractAmount != null">
+        CONTRACT_AMOUNT = #{contractAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="managerId != null">
+        MANAGER_ID = #{managerId,jdbcType=INTEGER},
+      </if>
+      <if test="phoneA != null">
+        PHONE_A = #{phoneA,jdbcType=VARCHAR},
+      </if>
+      <if test="deputyManagerId != null">
+        DEPUTY_MANAGER_ID = #{deputyManagerId,jdbcType=INTEGER},
+      </if>
+      <if test="phoneB != null">
+        PHONE_B = #{phoneB,jdbcType=VARCHAR},
+      </if>
+      <if test="handleId != null">
+        HANDLE_ID = #{handleId,jdbcType=INTEGER},
+      </if>
+      <if test="projectStates != null">
+        PROJECT_STATES = #{projectStates,jdbcType=VARCHAR},
+      </if>
+      <if test="projectDes != null">
+        PROJECT_DES = #{projectDes,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE = #{updateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PROJECT_ID = #{projectId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.formssi.third.model.ProjectInfo">
+    update project_info
+    set PROJECT_NAME = #{projectName,jdbcType=VARCHAR},
+      PROJECT_TYPE = #{projectType,jdbcType=VARCHAR},
+      PROJECT_AREA = #{projectArea,jdbcType=VARCHAR},
+      PROJECT_SCALE = #{projectScale,jdbcType=VARCHAR},
+      CONTRACT_S_DATE = #{contractSDate,jdbcType=VARCHAR},
+      CONTRACT_E_DATE = #{contractEDate,jdbcType=VARCHAR},
+      CONTRACT_AMOUNT = #{contractAmount,jdbcType=DECIMAL},
+      MANAGER_ID = #{managerId,jdbcType=INTEGER},
+      PHONE_A = #{phoneA,jdbcType=VARCHAR},
+      DEPUTY_MANAGER_ID = #{deputyManagerId,jdbcType=INTEGER},
+      PHONE_B = #{phoneB,jdbcType=VARCHAR},
+      HANDLE_ID = #{handleId,jdbcType=INTEGER},
+      PROJECT_STATES = #{projectStates,jdbcType=VARCHAR},
+      PROJECT_DES = #{projectDes,jdbcType=VARCHAR},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      UPDATE_DATE = #{updateDate,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=VARCHAR}
+    where PROJECT_ID = #{projectId,jdbcType=INTEGER}
+  </update>
+</mapper>

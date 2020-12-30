@@ -1,0 +1,47 @@
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/oa?useUnicode=true&useSSL=false&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&allowMultiQueries=true
+    username: root
+    password: root
+    druid:
+      initial-size: 5 #连接池初始化大小
+      min-idle: 10 #最小空闲连接数
+      max-active: 20 #最大连接数
+      web-stat-filter:
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*" #不统计这些请求数据
+      stat-view-servlet: #访问监控网页的登录用户名和密码
+        login-username: druid
+        login-password: druid
+  redis:
+    host: localhost # Redis服务器地址
+    database: 0 # Redis数据库索引（默认为0）
+    port: 6379 # Redis服务器连接端口
+    password: redis # Redis服务器连接密码（默认为空）
+    timeout: 3000ms # 连接超时时间（毫秒）
+    lettuce:
+      pool:
+        max-idle: 100
+        max-active: 100
+        min-idle: 20
+
+#文件上传 下载配置信息
+file:
+  path:
+    download: http://localhost:8080/third/
+    upload: C:\Users\Administrator\Desktop\third\
+
+#上传文件到文件服务器的配置
+ftpconfig:
+  #目标服务器IP
+  host: 118.24.243.216
+  #目标服务器端口
+  port: 22
+  #目标服务器用户名
+  user: root
+  #目标服务器密码
+  password: 49203a6a2de0427cb48e7a87d35eea50
+  #目标服务器地址
+  basePath: /thirdFile
+  #源文件目录地址
+  sourceFile: /sourceFile/
